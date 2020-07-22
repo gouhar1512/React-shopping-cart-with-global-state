@@ -1,0 +1,4 @@
+How to use context api
+How to use reducer and globalstate
+How to acces global state from any file.
+Does changing global state from any file a good practice.
