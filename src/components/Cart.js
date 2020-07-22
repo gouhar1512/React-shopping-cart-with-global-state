@@ -4,6 +4,7 @@ const Cart = () => {
   const context = useContext(CartContext);
   return (
     <div className="cart">
+      {context.cart.length ? null : "There is no product in cart"}
       <ul>
         {context.cart.map((product) => (
           <li key={product.id}>

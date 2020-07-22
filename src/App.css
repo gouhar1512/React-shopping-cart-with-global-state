@@ -43,7 +43,6 @@ body {
   padding: 0.5rem 1rem;
   text-decoration: none;
   color: white;
-  border-radius: 5px;
 }
 
 .navbar a:hover,
@@ -81,7 +80,7 @@ body {
 .cart button {
   background-color: var(--primary-color);
   color: white;
-  border: 0px;
+  border: 1px solid var(--primary-color);
   padding: 0.3rem;
   cursor: pointer;
 }

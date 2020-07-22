@@ -1,34 +1,40 @@
-import React, { useState } from "react";
-
+import React, { useReducer } from "react";
+import { reducer, ADD_TO_CART, REMOVE_FROM_CART } from "./cartReducer";
 export const CartContext = React.createContext();
+
 const GlobalState = (props) => {
   const products = [
-    { id: 1, name: "Mobile", quantity: 1 },
-    { id: 2, name: "Laptop", quantity: 1 },
-    { id: 3, name: "Keyboard", quantity: 1 },
-    { id: 4, name: "Mouse", quantity: 1 },
+    { id: 1, name: "Mobile" },
+    { id: 2, name: "Laptop" },
+    { id: 3, name: "Keyboard" },
+    { id: 4, name: "Mouse" },
   ];
 
-  const [cart, setCart] = useState([]);
+  const initialState = {
+    cart: [],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToCart = (product) => {
-    const updatedCart = [...cart];
+    const updatedCart = [...state.cart];
     const updatedItemIndex = updatedCart.findIndex(
       (item) => item.id === product.id
     );
-
     if (updatedItemIndex < 0) {
-      updatedCart.push(product);
+      updatedCart.push({ ...product, quantity: 1 });
     } else {
       const updatedItem = updatedCart[updatedItemIndex];
       updatedItem.quantity++;
       updatedCart[updatedItemIndex] = updatedItem;
     }
-    setCart(updatedCart);
+    dispatch({
+      type: ADD_TO_CART,
+      payload: updatedCart,
+    });
   };
 
   const removeFromCart = (productId) => {
-    const updatedCart = [...cart];
+    const updatedCart = [...state.cart];
     const updatedItemIndex = updatedCart.findIndex(
       (item) => item.id === productId
     );
@@ -42,14 +48,17 @@ const GlobalState = (props) => {
     } else {
       updatedCart[updatedItemIndex] = updatedItem;
     }
-    setCart(updatedCart);
+    dispatch({
+      type: REMOVE_FROM_CART,
+      payload: updatedCart,
+    });
   };
 
   return (
     <CartContext.Provider
       value={{
         products: products,
-        cart: cart,
+        cart: state.cart,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
       }}

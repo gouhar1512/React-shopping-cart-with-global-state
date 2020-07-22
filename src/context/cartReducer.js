@@ -1,17 +1,20 @@
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 
-const reducer = (state, action) => {
-  console.log("reducer triggered");
-  console.log("state", state, action.payload);
+export const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      return action.payload;
+      return {
+        ...state,
+        cart: action.payload,
+      };
     case REMOVE_FROM_CART:
-      return action.payload;
+      return {
+        ...state,
+        cart: action.payload,
+      };
+
     default:
       return state;
   }
 };
-
-export default reducer;
